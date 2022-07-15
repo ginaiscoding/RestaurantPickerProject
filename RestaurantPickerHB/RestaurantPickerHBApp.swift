@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct RestaurantPickerHBApp: App {
+    let viewModel = RestaurantViewModel()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StartView()
+                .environmentObject(viewModel)
+                .environment(\.managedObjectContext, viewModel.container.viewContext)
         }
     }
 }

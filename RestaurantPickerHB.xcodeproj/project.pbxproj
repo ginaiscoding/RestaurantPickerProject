@@ -7,18 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B622E93028809A17006F90F7 /* RandomRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B622E92F28809A17006F90F7 /* RandomRestaurantView.swift */; };
+		B62F195C287DDD2E00C586C3 /* FavoritesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62F195B287DDD2E00C586C3 /* FavoritesListView.swift */; };
+		B62F1999287E260C00C586C3 /* RestaurantViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62F1998287E260C00C586C3 /* RestaurantViewCell.swift */; };
+		B62F199F287E2B1B00C586C3 /* RestaurantModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B62F199D287E2B1B00C586C3 /* RestaurantModel.xcdatamodeld */; };
 		B640B650287C9AB800B97DFD /* RestaurantPickerHBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B64F287C9AB800B97DFD /* RestaurantPickerHBApp.swift */; };
-		B640B652287C9AB800B97DFD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B651287C9AB800B97DFD /* ContentView.swift */; };
 		B640B654287C9AB900B97DFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B640B653287C9AB900B97DFD /* Assets.xcassets */; };
 		B640B657287C9AB900B97DFD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B640B656287C9AB900B97DFD /* Preview Assets.xcassets */; };
+		B640B664287CA21300B97DFD /* YelpApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B663287CA21300B97DFD /* YelpApiService.swift */; };
+		B640B666287CA67100B97DFD /* RestaurantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B665287CA67100B97DFD /* RestaurantListView.swift */; };
+		B640B669287CA76600B97DFD /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B668287CA76600B97DFD /* RestaurantViewModel.swift */; };
+		B640B66B287CAB7000B97DFD /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B66A287CAB7000B97DFD /* StartView.swift */; };
+		B640B66E287CC1CB00B97DFD /* VT323-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B640B66D287CC1CB00B97DFD /* VT323-Regular.ttf */; };
+		B640B671287D313500B97DFD /* RestaurantListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B670287D313500B97DFD /* RestaurantListDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B622E92F28809A17006F90F7 /* RandomRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRestaurantView.swift; sourceTree = "<group>"; };
+		B62F195B287DDD2E00C586C3 /* FavoritesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListView.swift; sourceTree = "<group>"; };
+		B62F1998287E260C00C586C3 /* RestaurantViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewCell.swift; sourceTree = "<group>"; };
+		B62F199E287E2B1B00C586C3 /* RestaurantModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RestaurantModel.xcdatamodel; sourceTree = "<group>"; };
 		B640B64C287C9AB800B97DFD /* RestaurantPickerHB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantPickerHB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B640B64F287C9AB800B97DFD /* RestaurantPickerHBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantPickerHBApp.swift; sourceTree = "<group>"; };
-		B640B651287C9AB800B97DFD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B640B653287C9AB900B97DFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B640B656287C9AB900B97DFD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B640B663287CA21300B97DFD /* YelpApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpApiService.swift; sourceTree = "<group>"; };
+		B640B665287CA67100B97DFD /* RestaurantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListView.swift; sourceTree = "<group>"; };
+		B640B668287CA76600B97DFD /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
+		B640B66A287CAB7000B97DFD /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		B640B66D287CC1CB00B97DFD /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
+		B640B66F287CC4BD00B97DFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B640B670287D313500B97DFD /* RestaurantListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +51,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B622E93128809BCD006F90F7 /* RandomView */ = {
+			isa = PBXGroup;
+			children = (
+				B622E92F28809A17006F90F7 /* RandomRestaurantView.swift */,
+			);
+			path = RandomView;
+			sourceTree = "<group>";
+		};
+		B622E93228809BEF006F90F7 /* FavoritesView */ = {
+			isa = PBXGroup;
+			children = (
+				B62F195B287DDD2E00C586C3 /* FavoritesListView.swift */,
+				B640B665287CA67100B97DFD /* RestaurantListView.swift */,
+			);
+			path = FavoritesView;
+			sourceTree = "<group>";
+		};
 		B640B643287C9AB700B97DFD = {
 			isa = PBXGroup;
 			children = (
@@ -51,10 +87,15 @@
 		B640B64E287C9AB800B97DFD /* RestaurantPickerHB */ = {
 			isa = PBXGroup;
 			children = (
+				B640B66F287CC4BD00B97DFD /* Info.plist */,
+				B640B66C287CC1B200B97DFD /* Fonts */,
+				B640B662287CA20200B97DFD /* Services */,
+				B640B65F287CA1AF00B97DFD /* ViewModels */,
+				B640B65E287CA1AA00B97DFD /* Views */,
 				B640B64F287C9AB800B97DFD /* RestaurantPickerHBApp.swift */,
-				B640B651287C9AB800B97DFD /* ContentView.swift */,
 				B640B653287C9AB900B97DFD /* Assets.xcassets */,
 				B640B655287C9AB900B97DFD /* Preview Content */,
+				B62F199D287E2B1B00C586C3 /* RestaurantModel.xcdatamodeld */,
 			);
 			path = RestaurantPickerHB;
 			sourceTree = "<group>";
@@ -65,6 +106,50 @@
 				B640B656287C9AB900B97DFD /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B640B65E287CA1AA00B97DFD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B659231D2880A250001FD401 /* CustomCell */,
+				B622E93228809BEF006F90F7 /* FavoritesView */,
+				B622E93128809BCD006F90F7 /* RandomView */,
+				B640B66A287CAB7000B97DFD /* StartView.swift */,
+				B640B670287D313500B97DFD /* RestaurantListDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B640B65F287CA1AF00B97DFD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B640B668287CA76600B97DFD /* RestaurantViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B640B662287CA20200B97DFD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B640B663287CA21300B97DFD /* YelpApiService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B640B66C287CC1B200B97DFD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B640B66D287CC1CB00B97DFD /* VT323-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B659231D2880A250001FD401 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				B62F1998287E260C00C586C3 /* RestaurantViewCell.swift */,
+			);
+			path = CustomCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B640B657287C9AB900B97DFD /* Preview Assets.xcassets in Resources */,
+				B640B66E287CC1CB00B97DFD /* VT323-Regular.ttf in Resources */,
 				B640B654287C9AB900B97DFD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,8 +223,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B640B652287C9AB800B97DFD /* ContentView.swift in Sources */,
+				B62F1999287E260C00C586C3 /* RestaurantViewCell.swift in Sources */,
+				B62F199F287E2B1B00C586C3 /* RestaurantModel.xcdatamodeld in Sources */,
+				B640B664287CA21300B97DFD /* YelpApiService.swift in Sources */,
+				B640B671287D313500B97DFD /* RestaurantListDetailView.swift in Sources */,
 				B640B650287C9AB800B97DFD /* RestaurantPickerHBApp.swift in Sources */,
+				B640B666287CA67100B97DFD /* RestaurantListView.swift in Sources */,
+				B62F195C287DDD2E00C586C3 /* FavoritesListView.swift in Sources */,
+				B640B66B287CAB7000B97DFD /* StartView.swift in Sources */,
+				B622E93028809A17006F90F7 /* RandomRestaurantView.swift in Sources */,
+				B640B669287CA76600B97DFD /* RestaurantViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +363,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"RestaurantPickerHB/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RestaurantPickerHB/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -297,6 +392,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"RestaurantPickerHB/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RestaurantPickerHB/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -337,6 +433,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B62F199D287E2B1B00C586C3 /* RestaurantModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B62F199E287E2B1B00C586C3 /* RestaurantModel.xcdatamodel */,
+			);
+			currentVersion = B62F199E287E2B1B00C586C3 /* RestaurantModel.xcdatamodel */;
+			path = RestaurantModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B640B644287C9AB700B97DFD /* Project object */;
 }

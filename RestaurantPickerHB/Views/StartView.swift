@@ -6,57 +6,95 @@
 //
 
 import SwiftUI
+import CoreLocationUI
 
 struct StartView: View {
-    @State var isAnimating: Bool = true
     
+    @EnvironmentObject var viewModel: RestaurantViewModel
+    
+    @State var isAnimating: Bool = false
+    @State var viewSelection: String? = nil
+  
     var animation: Animation {
-        .interpolatingSpring(stiffness: 0.8, damping: 0.5)
+        .interpolatingSpring(stiffness: 0.7, damping: 0.5)
             .repeatForever()
             .delay(isAnimating ? .random(in: 0...1) : 0)
             .speed(isAnimating ? .random(in: 0.5...1) : 0)
     }
     
     var body: some View {
+        NavigationView {
         GeometryReader { proxy in
         VStack {
             ZStack {
+                Image("grapes")
+                    .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
+                    .animation(animation)
+                Image("shrimp")
+                    .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
+                    .animation(animation)
+                Image("cupcake-2")
+                    .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
+                    .animation(animation)
                 Image("pizza")
                     .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
+                    .animation(animation)
                 Image("hotdog")
                     .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
+                    .animation(animation)
                 Image("drumsticks")
                     .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
+                    .animation(animation)
                 Image("popsicle")
                     .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
+                    .animation(animation)
                 Image("cheese")
                     .position(x: .random(in: 0...proxy.size.width), y: .random(in: 0...proxy.size.height / 2))
-                    
                     .animation(animation)
+                
+            }.frame(height: proxy.size.height / 3)
                 VStack{
                     Text("Food Picker")
                         .font(Font.custom("VT323-Regular", size:50))
                         .padding(15)
                         .background(Color.secondary)
                         .foregroundColor(.white)
-            }.frame(height: proxy.size.height / 3)
-            
             }
+                .toolbar{
+                    ToolbarItem{
+                        NavigationLink(destination: RestaurantListView(), tag: "third", selection: $viewSelection) {
+                        Button(action:  {
+                            self.viewSelection = "third"
+                        }) {
+                            Image(systemName: "magnifyingglass.circle.fill")
+                    }
+                    }
+                }
+                }
             Spacer()
-            
-                    VStack {
-                        
-                            Button(action: {}) {
+            //Buttons
+                   VStack {
+            NavigationLink(destination: RandomRestaurantView(), tag: "first", selection: $viewSelection) {
+                LocationButton(.currentLocation, action: {
+                                
+                                self.viewSelection = "first"
+                            ) {
                                 Text("Pick From Current Location")
                                     .font(Font.custom("VT323-Regular", size:20))
-                            }   .padding(15)
+                            .padding(15)
                                 .background(Color.black)
                                 .cornerRadius(20)
                                 .shadow(radius: 8)
                             .foregroundColor(.white)
-                        
-                        
-                        Button(action: {}) {
+                        }
+                }
+                        }
+            NavigationLink(destination: FavoritesListView(), tag: "second",
+                                      selection: $viewSelection) {
+                            Button(action: {
+                                self.viewSelection = "second"
+                               
+                            }) {
                             Text("Pick from Favorites List")
                                 .font(Font.custom("VT323-Regular", size:20))
                         }   .padding(15)
@@ -65,16 +103,19 @@ struct StartView: View {
                             .shadow(radius: 8)
                         .foregroundColor(.white)
                         .padding()
-                }
+                        }
+                   }
             }.onAppear {
                 isAnimating.toggle()
+                viewModel.requestPermission()
+                }
             }
-        }//end of VStack
+        }
     }
 }
-
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
         StartView()
     }
 }
+
