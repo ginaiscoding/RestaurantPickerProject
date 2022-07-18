@@ -7,6 +7,7 @@
 import CoreData
 import SwiftUI
 
+
 struct FavoritesListView: View {
     
     @Environment(\.managedObjectContext) var context
@@ -19,11 +20,13 @@ struct FavoritesListView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-        Text("Favorite Restaurants")
+        Text("Favorite Restaurants \(restaurants.count)")
                 .font(.title)
+                .bold()
+                .padding()
             Divider()
             List(restaurants, id: \.id) { restaurant in
-                RestaurantViewCell(restaurant: restaurant)
+                FavoritesCell(restaurant: restaurant)
                     .swipeActions(edge: .trailing, allowsFullSwipe: true){
                         Button("Delete", role: .destructive) {
                             if let id = restaurant.id {
@@ -33,15 +36,18 @@ struct FavoritesListView: View {
                     }
             }.listStyle(.plain)
             Spacer()
-    }
+        }
+        .onAppear {
+            print(restaurantModels.count)
+        }
   }
     func deleteModel(for id: String) {
-        if let model = restaurantModels.first(where: { $0.id == id })
+        if let model = restaurantModels.first(where: { $0.restaurantId == id })
          {
              context.delete(model)
             do {
                 try context.save()
-            } catch { print(error.localizedDescription)}
+            } catch { print(error)}
          }
     }
 }

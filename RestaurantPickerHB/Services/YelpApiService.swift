@@ -18,7 +18,7 @@ struct YelpApiService {
 }
 
 extension YelpApiService {
-    static let live = YelpApiService { term, location, cat, rating, opennow, limit in
+    static let live = YelpApiService { term, location, radius, rating, opennow, limit in
         
         var urlComponents = URLComponents(string: "https://api.yelp.com")!
         urlComponents.path = "/v3/businesses/search"
@@ -26,7 +26,7 @@ extension YelpApiService {
             .init(name: "term", value: term),
             .init(name: "longitude", value: String(location.coordinate.longitude)),
             .init(name: "latitude", value: String(location.coordinate.latitude)),
-            .init(name: "categories", value: cat),
+            .init(name: "radius", value: radius),
             .init(name: "rating", value: String(rating ?? 4)),
             .init(name: "open_now", value: String(true)),
             .init(name: "limit", value: String(limit)),
@@ -56,6 +56,7 @@ struct SearchResult: Codable {
 }
 // MARK: - Restaurant struct
 struct Restaurant: Codable {
+
    
     let rating: Double?
     let id, alias: String?
@@ -125,7 +126,7 @@ extension Restaurant {
 
 extension Restaurant {
     init(model: RestaurantModel) {
-        self.init(rating: Double(model.rating ?? "%.1f"), id: model.id, alias: nil, categories: [.init(alias: nil, title: model.category)], name: model.name, url: nil, location: nil, imageURL: model.imageUrl, coordinates: nil, limit: nil)
+        self.init(rating: Double(model.rating ?? "%.1f"), id: model.restaurantId, alias: nil, categories: [.init(alias: nil, title: model.category)], name: model.name, url: nil, location: nil, imageURL: model.imageUrl, coordinates: nil, limit: nil)
     }
 }
 

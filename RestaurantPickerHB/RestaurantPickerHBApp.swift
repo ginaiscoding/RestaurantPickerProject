@@ -14,7 +14,7 @@ struct RestaurantPickerHBApp: App {
         WindowGroup {
             StartView()
                 .environmentObject(viewModel)
-                .environment(\.managedObjectContext, viewModel.container.viewContext)
+                .environment(\.managedObjectContext, PersistentContainer.viewContext)
         }
     }
 }

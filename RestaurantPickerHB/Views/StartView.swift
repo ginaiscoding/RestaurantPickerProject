@@ -12,10 +12,11 @@ struct StartView: View {
     
     @EnvironmentObject var viewModel: RestaurantViewModel
     
+
     @State var isAnimating: Bool = false
     @State var viewSelection: String? = nil
   
-    var animation: Animation {
+    var animation: SwiftUI.Animation {
         .interpolatingSpring(stiffness: 0.7, damping: 0.5)
             .repeatForever()
             .delay(isAnimating ? .random(in: 0...1) : 0)
@@ -75,28 +76,28 @@ struct StartView: View {
             //Buttons
                    VStack {
             NavigationLink(destination: RandomRestaurantView(), tag: "first", selection: $viewSelection) {
-                LocationButton(.currentLocation, action: {
-                                
+                            Button(action: {
                                 self.viewSelection = "first"
-                            ) {
+                                viewModel.getRandomRestaurant()
+                            }) {
                                 Text("Pick From Current Location")
                                     .font(Font.custom("VT323-Regular", size:20))
-                            .padding(15)
-                                .background(Color.black)
-                                .cornerRadius(20)
-                                .shadow(radius: 8)
-                            .foregroundColor(.white)
+                                    .padding(15)
+                                    .background(Color.black)
+                                    .cornerRadius(20)
+                                    .shadow(radius: 8)
+                                    .foregroundColor(.white)
                         }
-                }
-                        }
-            NavigationLink(destination: FavoritesListView(), tag: "second",
+                
+                                   
+            NavigationLink(destination: RandomFavoriteView(), tag: "second",
                                       selection: $viewSelection) {
                             Button(action: {
                                 self.viewSelection = "second"
                                
                             }) {
                             Text("Pick from Favorites List")
-                                .font(Font.custom("VT323-Regular", size:20))
+                            .font(Font.custom("VT323-Regular", size:20))
                         }   .padding(15)
                             .background(Color.black)
                             .cornerRadius(20)
@@ -104,6 +105,7 @@ struct StartView: View {
                         .foregroundColor(.white)
                         .padding()
                         }
+                   
                    }
             }.onAppear {
                 isAnimating.toggle()
@@ -119,3 +121,4 @@ struct StartView_Previews: PreviewProvider {
     }
 }
 
+}

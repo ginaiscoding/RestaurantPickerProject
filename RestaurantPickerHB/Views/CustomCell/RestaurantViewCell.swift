@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
-
+import CoreData
 
 struct RestaurantViewCell: View {
     
     @EnvironmentObject var viewModel: RestaurantViewModel
-    @Environment(\.managedObjectContext) var context
+    @FetchRequest(entity: RestaurantModel.entity(), sortDescriptors: [], animation: .easeInOut)
+    
+    var restaurantModels: FetchedResults<RestaurantModel>
+    
+    //  same as  @Environment(\.managedObjectContext) var context
+    let context = PersistentContainer.viewContext
     
     @State var isFavorited: Bool = false
-
     
     let restaurant: Restaurant
     
@@ -23,7 +27,8 @@ struct RestaurantViewCell: View {
             AsyncImage(url: restaurant.formattedImageUrl){ image in
                 image.resizable()
             } placeholder: {
-                Color.gray
+                Text("No Image Found..")
+                    .background(.gray)
             }
             .frame(width: 110, height: 110)
                 .cornerRadius(10)
@@ -41,25 +46,32 @@ struct RestaurantViewCell: View {
                         .frame(width:12,height:12)
                         .foregroundColor(.yellow)
             }
-                        
+              
             }.frame(width: 100, height: 100 )
+            //Favorites Button
             VStack {
                 Button(action: {
-                        self.isFavorited.toggle()
-                    do {
-                        try viewModel.saveFavorite(restaurant: restaurant, with: context)
-                        print("Favorited")
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                      
+                    viewModel.updateFavorite(restaurant: restaurant, isFavorited: self.isFavorited)
+                    self.isFavorited.toggle()
+
+                    
                             }) {
                         Image(systemName: self.isFavorited == false ? "heart" : "heart.fill")
-                        }
-                Text("Favorite")
-                    .font(.system(size: 10))
-                    .foregroundColor(.secondary)
+                                .foregroundColor(.red)
+                                
+                        Text(self.isFavorited == false ? "Favorite" : "Favorited")
+                                .font(.system(size: 10))
+                                .foregroundColor(.secondary)
+                            }
+               
             }.frame(width: 90, height: 100, alignment: .trailing)
         }
+            //         .onAppear {
+//            if restaurant.name ?? "" == restaurantModels {
+//                isFavorited = true
+//            }
+//        }
     }
 }
 

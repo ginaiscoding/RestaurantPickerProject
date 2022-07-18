@@ -10,8 +10,11 @@ import SwiftUI
 struct RestaurantListView: View {
    
     @EnvironmentObject var viewModel: RestaurantViewModel
-    @Environment(\.managedObjectContext) var context
+    @FetchRequest(entity: RestaurantModel.entity(), sortDescriptors: [], animation: .easeInOut)
+    
+    var restaurantModels: FetchedResults<RestaurantModel>
  
+    
     
     var body: some View {
         NavigationView {
@@ -38,10 +41,12 @@ struct RestaurantListView: View {
             .sheet(isPresented: $viewModel.showFavorites) {
                 FavoritesListView()
             }
-        }
+        } 
     }
-    }
+  
+}
 
+//.onappear to compare favorites in coredata with fetched restaurants from yelp. if favorite restaurant exists, (restaurant.name) then change value to true
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         RestaurantListView()
