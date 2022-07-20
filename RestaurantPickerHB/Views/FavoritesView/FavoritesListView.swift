@@ -9,7 +9,8 @@ import SwiftUI
 
 
 struct FavoritesListView: View {
-    
+    @Environment(\.refresh) private var refresh
+    @EnvironmentObject var viewModel: RestaurantViewModel
     @Environment(\.managedObjectContext) var context
     @FetchRequest(entity: RestaurantModel.entity(), sortDescriptors: [], animation: .easeInOut)
     
@@ -26,30 +27,31 @@ struct FavoritesListView: View {
                 .padding()
             Divider()
             List(restaurants, id: \.id) { restaurant in
-                FavoritesCell(restaurant: restaurant)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true){
-                        Button("Delete", role: .destructive) {
-                            if let id = restaurant.id {
-                                deleteModel(for: id)
-                            }
-                        }
-                    }
+                RestaurantViewCell(restaurant: restaurant)
+//                    .swipeActions(edge: .trailing, allowsFullSwipe: true){
+//                        Button("Delete", role: .destructive) {
+//                            if let id = restaurant.id {
+//                                deleteModel(for: id)
+//                            }
+//                        }
+//                    }
             }.listStyle(.plain)
             Spacer()
+                
         }
-        .onAppear {
-            print(restaurantModels.count)
-        }
+//        .onAppear {
+//            print(restaurantModels.count)
+//        }
   }
-    func deleteModel(for id: String) {
-        if let model = restaurantModels.first(where: { $0.restaurantId == id })
-         {
-             context.delete(model)
-            do {
-                try context.save()
-            } catch { print(error)}
-         }
-    }
+//    func deleteModel(for id: String) {
+//        if let model = restaurantModels.first(where: { $0.restaurantId == id })
+//         {
+//             context.delete(model)
+//            do {
+//                try context.save()
+//            } catch { print(error)}
+//         }
+//    }
 }
 
 struct FavoritesListView_Previews: PreviewProvider {

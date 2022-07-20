@@ -60,6 +60,6 @@ struct FavoritesCell: View {
 
 struct FavoritesCell_Previews: PreviewProvider {
     static var previews: some View {
-        FavoritesCell(restaurant: .init(rating: 4.5, id: nil, alias: nil, categories: nil, name: "Sweetgreen", url: nil, location: nil, imageURL: "https://s3-media1.fl.yelpcdn.com/bphoto/j_Ut4i4j2Q4d2TVEDPVt4g/o.jpg", coordinates: nil, limit: 50) )
+        FavoritesCell(restaurant: .init(rating: 4.5, id: nil, alias: nil, categories: nil, name: "Sweetgreen", url: nil, location: nil, imageURL: "https://s3-media1.fl.yelpcdn.com/bphoto/j_Ut4i4j2Q4d2TVEDPVt4g/o.jpg", coordinates: nil, limit: 50, phone:"415-123-4567", displayPhone: "415-123-4567") )
 }
 }

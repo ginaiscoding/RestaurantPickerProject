@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct RandomFavoriteView: View {
+    
+    @FetchRequest(entity: RestaurantModel.entity(), sortDescriptors: [], animation: .easeInOut)
+    
+    var restaurantModels: FetchedResults<RestaurantModel>
+    
     var body: some View {
         Text("Random Favorite Restaurant")
     }

@@ -66,6 +66,7 @@ struct StartView: View {
                         NavigationLink(destination: RestaurantListView(), tag: "third", selection: $viewSelection) {
                         Button(action:  {
                             self.viewSelection = "third"
+                            viewModel.getRestaurants()
                         }) {
                             Image(systemName: "magnifyingglass.circle.fill")
                     }
@@ -75,7 +76,7 @@ struct StartView: View {
             Spacer()
             //Buttons
                    VStack {
-            NavigationLink(destination: RandomRestaurantView(), tag: "first", selection: $viewSelection) {
+                       NavigationLink(destination: RandomRestaurantView(), tag: "first", selection: $viewSelection) {
                             Button(action: {
                                 self.viewSelection = "first"
                                 viewModel.getRandomRestaurant()
@@ -94,7 +95,7 @@ struct StartView: View {
                                       selection: $viewSelection) {
                             Button(action: {
                                 self.viewSelection = "second"
-                               
+                                viewModel.getRandomFavorite()
                             }) {
                             Text("Pick from Favorites List")
                             .font(Font.custom("VT323-Regular", size:20))

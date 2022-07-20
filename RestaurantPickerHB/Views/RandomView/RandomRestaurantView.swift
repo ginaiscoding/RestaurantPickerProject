@@ -10,7 +10,7 @@ import SwiftUI
 struct RandomRestaurantView: View {
     
     @EnvironmentObject var viewModel: RestaurantViewModel
-    @Environment(\.refresh) private var refresh: RefreshAction?
+
    
     var body: some View {
        Text("Random Restaurant is:")
@@ -27,7 +27,6 @@ struct RandomRestaurantView: View {
                 viewModel.getRandomRestaurant()
             }
                 
-            
         }) {
             Text("PICK ANOTHER RESTAURANT")
                 .font(Font.custom("VT323-Regular", size:20))

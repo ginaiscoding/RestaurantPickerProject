@@ -13,12 +13,12 @@ let apiKey = "RY-b8erXE6U0l0HMrGr3-6U2tnB1EnGCBZ_NpJRRFEG9Cb9L56w2NdhoZD7Cvg4s0U
 
 struct YelpApiService {
     
-    var request: (String, CLLocation, String?, Double?, Bool, Int) -> AnyPublisher<[Restaurant], Never>
+    var request: (String, CLLocation, Double?, Bool, Int) -> AnyPublisher<[Restaurant], Never>
    
 }
 
 extension YelpApiService {
-    static let live = YelpApiService { term, location, radius, rating, opennow, limit in
+    static let live = YelpApiService { term, location, rating, opennow, limit in
         
         var urlComponents = URLComponents(string: "https://api.yelp.com")!
         urlComponents.path = "/v3/businesses/search"
@@ -26,13 +26,11 @@ extension YelpApiService {
             .init(name: "term", value: term),
             .init(name: "longitude", value: String(location.coordinate.longitude)),
             .init(name: "latitude", value: String(location.coordinate.latitude)),
-            .init(name: "radius", value: radius),
             .init(name: "rating", value: String(rating ?? 4)),
             .init(name: "open_now", value: String(true)),
             .init(name: "limit", value: String(limit)),
-           
-            
         ]
+        
         let url = urlComponents.url!
         var request = URLRequest(url: url)
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
@@ -47,6 +45,8 @@ extension YelpApiService {
             .eraseToAnyPublisher()
       
     }
+    
+    
 }
 
 
@@ -67,7 +67,8 @@ struct Restaurant: Codable {
     let imageURL: String?
     let coordinates: Coordinates?
     let limit: Int?
-   
+    let phone, displayPhone: String?
+  
     
     enum CodingKeys: String, CodingKey {
         case imageURL = "image_url"
@@ -75,11 +76,12 @@ struct Restaurant: Codable {
         case id, alias
         case categories
         case name
-        case url
+        case url, phone
+        case displayPhone = "display_phone"
         case location
         case coordinates
         case limit
-      
+    
     }
 }
 
@@ -95,12 +97,15 @@ struct Coordinates: Codable {
 }
 // MARK: - Location
 struct Location: Codable {
-    let city, country, address2, address3: String?
-    let state, address1, zipCode: String?
+    let address1, address2, address3, city: String?
+    let zipCode, country, state: String?
+    let displayAddress: [String]?
     
     enum CodingKeys: String, CodingKey{
-        case city, country, address2, address3, state, address1
+        case address1, address2, address3, city
         case zipCode = "zip_code"
+        case country, state
+        case displayAddress = "display_address"
     }
 }
 
@@ -120,13 +125,21 @@ extension Restaurant {
             return URL(string: imageUrl)
         }
         return nil
-          
     }
+    var formattedAddress: String {
+        location?.displayAddress?.joined(separator: ",") ?? "none"
+            
+    }
+    var formattedPhone: String {
+        displayPhone ?? "none"
+    }
+
+       
 }
 
 extension Restaurant {
     init(model: RestaurantModel) {
-        self.init(rating: Double(model.rating ?? "%.1f"), id: model.restaurantId, alias: nil, categories: [.init(alias: nil, title: model.category)], name: model.name, url: nil, location: nil, imageURL: model.imageUrl, coordinates: nil, limit: nil)
+        self.init(rating: Double(model.rating ?? "%.1f"), id: model.restaurantId, alias: nil, categories: [.init(alias: nil, title: model.category)], name: model.name, url: nil, location: nil, imageURL: model.imageUrl, coordinates: nil, limit: nil, phone:"415-123-4567", displayPhone: "415-123-4567")
     }
 }
 

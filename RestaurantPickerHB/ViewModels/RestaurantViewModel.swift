@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 import MapKit
 import CoreData
+import SwiftUI
 
 
 class RestaurantViewModel: ObservableObject {
@@ -18,15 +19,14 @@ class RestaurantViewModel: ObservableObject {
     @Published var cityName = ""
     @Published var region = MKCoordinateRegion()
     @Published var showFavorites = false
-    @Published var favoriteRestaurants = [Restaurant]()
+    @Published var randomFavoriteRestaurant = [Restaurant]()
     @Published var randomRestaurant = [Restaurant]()
-    
-    var longitude: Double = 0.0
-    var latitude: Double = 0.0
+    @Published var longitude: Double = 0.0
+    @Published var latitude: Double = 0.0
     
     let manager = CLLocationManager()
     
-    
+    let context = PersistentContainer.viewContext
     
     init() {
         getRestaurants()
@@ -36,7 +36,7 @@ class RestaurantViewModel: ObservableObject {
 //            }
     }
     
-    
+
     func requestPermission() {
         manager.requestWhenInUseAuthorization()
        
@@ -44,21 +44,48 @@ class RestaurantViewModel: ObservableObject {
     
     func getRestaurants() {
         let live = YelpApiService.live
-        live.request("food", .init(latitude: latitude, longitude: longitude), "\(5000)", 4, true, 50)
+        live.request("food", .init(latitude: latitude, longitude: longitude), 4.0, true, 50)
             .assign(to: &$restaurants)
        
     }
-    
+   
     func getRandomRestaurant() {
         let restaurants = restaurants
         let random = restaurants.randomElement()
         randomRestaurant.append(random!)
+        if randomRestaurant.count > 1 {
+        randomRestaurant.remove(at: 0)
+        }
         print("2.Random Restaurant is \(String(describing: random))")
     }
     
     func getRandomFavorite() {
+       // let fetchRequest = NSFetchRequest<RestaurantModel>(entityName: "RestaurantModel")
+        @FetchRequest(entity: RestaurantModel.entity(), sortDescriptors: [], animation: .easeInOut)
+        
+        var restaurantModels: FetchedResults<RestaurantModel>
+//        do {
+//            let fetchRequestCount = try? context.count(for: fetchRequest)
+//        fetchRequest.fetchOffset = Int.random(in: 0...(fetchRequestCount ?? 0))
+//        fetchRequest.fetchLimit = 1
+//
+//        do {
+//            let randomFavorite = try context.fetch(fetchRequest)
+//            //randomFavoriteRestaurant.append(randomFavorite)
+//            print("RANDOM FAVORITE IS \(randomFavorite)")
+//        } catch {
+//            print(error)
+//
+//        }
+//        } catch {
+//            print(error)
+//        }
+//        let randomFave = restaurantModels.randomElement()
+//        print("RANDOM FAVE IS \(String(describing: randomFave))")
+       
+        }
     
-    }
+    
     
    // MARK: - LOCATION MANAGER
     func locationManager(_ manager: CLLocationManager, didUpdateLocations location: [CLLocation]) {

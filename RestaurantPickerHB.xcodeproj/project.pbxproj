@@ -20,6 +20,7 @@
 		B640B66B287CAB7000B97DFD /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B66A287CAB7000B97DFD /* StartView.swift */; };
 		B640B66E287CC1CB00B97DFD /* VT323-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B640B66D287CC1CB00B97DFD /* VT323-Regular.ttf */; };
 		B640B671287D313500B97DFD /* RestaurantListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B640B670287D313500B97DFD /* RestaurantListDetailView.swift */; };
+		B648F67A288758AD006EDFDA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B648F679288758AD006EDFDA /* LocationManager.swift */; };
 		B6D2193C288249F900E90CC3 /* FavoritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2193B288249F900E90CC3 /* FavoritesCell.swift */; };
 		B6D2193E28824FB200E90CC3 /* RandomFavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2193D28824FB200E90CC3 /* RandomFavoriteView.swift */; };
 		B6D2194128838F1600E90CC3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2194028838F1600E90CC3 /* CoreDataStack.swift */; };
@@ -41,6 +42,7 @@
 		B640B66D287CC1CB00B97DFD /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
 		B640B66F287CC4BD00B97DFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B640B670287D313500B97DFD /* RestaurantListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListDetailView.swift; sourceTree = "<group>"; };
+		B648F679288758AD006EDFDA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B6D2193B288249F900E90CC3 /* FavoritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCell.swift; sourceTree = "<group>"; };
 		B6D2193D28824FB200E90CC3 /* RandomFavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFavoriteView.swift; sourceTree = "<group>"; };
 		B6D2194028838F1600E90CC3 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -70,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				B62F195B287DDD2E00C586C3 /* FavoritesListView.swift */,
-				B640B665287CA67100B97DFD /* RestaurantListView.swift */,
 			);
 			path = FavoritesView;
 			sourceTree = "<group>";
@@ -100,6 +101,7 @@
 				B640B662287CA20200B97DFD /* Services */,
 				B640B65F287CA1AF00B97DFD /* ViewModels */,
 				B640B65E287CA1AA00B97DFD /* Views */,
+				B648F67828872FCD006EDFDA /* Details */,
 				B640B64F287C9AB800B97DFD /* RestaurantPickerHBApp.swift */,
 				B640B653287C9AB900B97DFD /* Assets.xcassets */,
 				B640B655287C9AB900B97DFD /* Preview Content */,
@@ -118,11 +120,11 @@
 		B640B65E287CA1AA00B97DFD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B640B665287CA67100B97DFD /* RestaurantListView.swift */,
 				B659231D2880A250001FD401 /* CustomCell */,
 				B622E93228809BEF006F90F7 /* FavoritesView */,
 				B622E93128809BCD006F90F7 /* RandomView */,
 				B640B66A287CAB7000B97DFD /* StartView.swift */,
-				B640B670287D313500B97DFD /* RestaurantListDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				B640B663287CA21300B97DFD /* YelpApiService.swift */,
+				B648F679288758AD006EDFDA /* LocationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -149,6 +152,14 @@
 				B640B66D287CC1CB00B97DFD /* VT323-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B648F67828872FCD006EDFDA /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				B640B670287D313500B97DFD /* RestaurantListDetailView.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		B659231D2880A250001FD401 /* CustomCell */ = {
@@ -250,6 +261,7 @@
 				B62F195C287DDD2E00C586C3 /* FavoritesListView.swift in Sources */,
 				B640B66B287CAB7000B97DFD /* StartView.swift in Sources */,
 				B622E93028809A17006F90F7 /* RandomRestaurantView.swift in Sources */,
+				B648F67A288758AD006EDFDA /* LocationManager.swift in Sources */,
 				B640B669287CA76600B97DFD /* RestaurantViewModel.swift in Sources */,
 				B6D2193C288249F900E90CC3 /* FavoritesCell.swift in Sources */,
 				B6D2193E28824FB200E90CC3 /* RandomFavoriteView.swift in Sources */,
