@@ -9,46 +9,87 @@ import Foundation
 import CoreLocation
 import Combine
 
-let apiKey = "RY-b8erXE6U0l0HMrGr3-6U2tnB1EnGCBZ_NpJRRFEG9Cb9L56w2NdhoZD7Cvg4s0UjPnh7EPwdyQz__kVT0q2BEscYvMAAzbCk55oaviVzVDYnsub-2QyhhA2HMYnYx"
+let apiKey = "JjWDojJnd-cspd3LdV74zeIcdx15oDYtoXvVogryFExhHZ1bDKsmZzVLXFoOIgmkTURluK9SSoO1G9hmfnGTmvwaA_t9RoADHFc1w5kxfszQmTspVSRf_AsVeNTcYnYx"
 
 struct YelpApiService {
     
-    var request: (String, CLLocation, Double?, Bool, Int) -> AnyPublisher<[Restaurant], Never>
-   
+    var request: (Endpoint) -> AnyPublisher<[Restaurant], Never>
+    var details: (Endpoint) -> AnyPublisher<Restaurant?, Never>
+    var reviews: (Endpoint) -> AnyPublisher<[Reviews], Never>
 }
 
 extension YelpApiService {
-    static let live = YelpApiService { term, location, rating, opennow, limit in
+    static let live = YelpApiService(request: { endpoint in
         
-        var urlComponents = URLComponents(string: "https://api.yelp.com")!
-        urlComponents.path = "/v3/businesses/search"
-        urlComponents.queryItems = [
-            .init(name: "term", value: term),
-            .init(name: "longitude", value: String(location.coordinate.longitude)),
-            .init(name: "latitude", value: String(location.coordinate.latitude)),
-            .init(name: "rating", value: String(rating ?? 4)),
-            .init(name: "open_now", value: String(true)),
-            .init(name: "limit", value: String(limit)),
-        ]
-        
-        let url = urlComponents.url!
-        var request = URLRequest(url: url)
-        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        
-        //Url request and return
-        return URLSession.shared.dataTaskPublisher(for: request)
+        //Url request and return [Restaurants]
+        return URLSession.shared.dataTaskPublisher(for: endpoint.request)
             .map(\.data)
             .decode(type: SearchResult.self, decoder: JSONDecoder())
             .map(\.businesses)
             .replaceError(with: [])
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
-      
-    }
-    
-    
+    }, details: { endpoint in
+        //URL request and return Restaurant
+        return URLSession.shared.dataTaskPublisher(for: endpoint.request)
+            .map(\.data)
+            .decode(type: Restaurant?.self, decoder: JSONDecoder())
+            .replaceError(with: nil)
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }, reviews: { endpoint in
+        return URLSession.shared.dataTaskPublisher(for: endpoint.request)
+            .map(\.data)
+            .decode(type: Review.self, decoder: JSONDecoder())
+            .map(\.reviews)
+            .replaceError(with: [])
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    })
 }
 
+enum Endpoint {
+    case search(term: String, location: CLLocation, rating: Double?, openNow: Bool, limit: Int)
+    case details(id: String)
+    case reviews(id: String)
+    
+    var path: String {
+        switch self {
+        case .search:
+            return "/v3/businesses/search"
+        case .details(let id):
+            return "/v3/businesses/\(id)"
+        case .reviews(let id):
+            return "/v3/businesses/\(id)/reviews"
+        }
+    }
+    var queryItems: [URLQueryItem] {
+        switch self {
+        case .search(let term, let location, let rating, _, let limit):
+            return [
+                .init(name: "term", value: term),
+                .init(name: "longitude", value: String(location.coordinate.longitude)),
+                .init(name: "latitude", value: String(location.coordinate.latitude)),
+                .init(name: "rating", value: String(rating ?? 4)),
+                .init(name: "open_now", value: String(true)),
+                .init(name: "limit", value: String(limit)),
+            ]
+        case .details:
+            return []
+        case .reviews:
+            return []
+        }
+    }
+    var request: URLRequest {
+        var urlComponents = URLComponents(string: "https://api.yelp.com")!
+        urlComponents.path = path
+        urlComponents.queryItems = queryItems
+        let url = urlComponents.url!
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+}
 
 // MARK: - Search Result
 struct SearchResult: Codable {
@@ -56,8 +97,7 @@ struct SearchResult: Codable {
 }
 // MARK: - Restaurant struct
 struct Restaurant: Codable {
-
-   
+    
     let rating: Double?
     let id, alias: String?
     let categories: [Category]?
@@ -68,7 +108,9 @@ struct Restaurant: Codable {
     let coordinates: Coordinates?
     let limit: Int?
     let phone, displayPhone: String?
-  
+    let photos: [String]?
+    let reviewCount: Int?
+    let price: String?
     
     enum CodingKeys: String, CodingKey {
         case imageURL = "image_url"
@@ -81,7 +123,40 @@ struct Restaurant: Codable {
         case location
         case coordinates
         case limit
+        case photos
+        case reviewCount = "review_count"
+        case price
+    }
+}
+struct Review: Codable {
+    let reviews: [Reviews]
+}
+// MARK: - Reviews
+struct Reviews: Codable {
     
+    let user: User?
+    let rating: Int?
+    let text: String?
+    let timeCreated: String?
+    let id: String?
+    
+    enum CodingKeys: String, CodingKey{
+        case user
+        case rating
+        case text
+        case timeCreated = "time_created"
+        case id
+    }
+}
+
+// MARK: - User
+struct User: Codable {
+    let name: String?
+    let imageURL: String?
+    
+    enum CodingKeys: String, CodingKey{
+        case name
+        case imageURL = "image_url"
     }
 }
 
@@ -126,20 +201,45 @@ extension Restaurant {
         }
         return nil
     }
+    var images: [URL] {
+        guard let photos = photos else { return [] }
+        return photos.compactMap { URL.init(string: $0)} 
+    }
     var formattedAddress: String {
         location?.displayAddress?.joined(separator: ",") ?? "none"
-            
     }
     var formattedPhone: String {
         displayPhone ?? "none"
     }
+    var formattedPhoneCall: String {
+        displayPhone?.filter {!$0.isWhitespace} ?? "none"
+    }
+    var formattedReviewCount: String {
+        String(reviewCount ?? 0)
+    }
+}
 
-       
+extension Reviews {
+    
+    var formattedName: String {
+        user?.name ?? "none"
+    }
+    var formattedRating: String {
+        String(rating ?? 0)
+    }
+    var formattedImageUrl: URL? {
+        if let imageUrl = user?.imageURL {
+            return URL(string: imageUrl)
+        }
+        return nil
+    }
 }
 
 extension Restaurant {
     init(model: RestaurantModel) {
-        self.init(rating: Double(model.rating ?? "%.1f"), id: model.restaurantId, alias: nil, categories: [.init(alias: nil, title: model.category)], name: model.name, url: nil, location: nil, imageURL: model.imageUrl, coordinates: nil, limit: nil, phone:"415-123-4567", displayPhone: "415-123-4567")
+        self.init(rating: Double(model.rating ?? "%.1f"), id: model.restaurantId, alias: nil, categories: [.init(alias: nil, title: model.category)], name: model.name, url: nil, location: .init(address1: nil, address2: nil, address3: nil, city: nil, zipCode: nil, country: nil, state: nil, displayAddress: Array(arrayLiteral: model.displayAddress ?? "none")), imageURL: model.imageUrl, coordinates: nil, limit: nil, phone: String(model.phone?.filter {!$0.isWhitespace} ?? "none"), displayPhone: model.phone, photos: nil, reviewCount: Int(model.reviewCount ?? "0"), price: model.price)
+        
+        
     }
 }
 

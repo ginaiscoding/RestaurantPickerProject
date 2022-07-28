@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct RestaurantPickerHBApp: App {
     let viewModel = RestaurantViewModel()
+   
     var body: some Scene {
         WindowGroup {
             StartView()
                 .environmentObject(viewModel)
                 .environment(\.managedObjectContext, PersistentContainer.viewContext)
-        }
+               
+        }     // every view is using these environments
     }
 }

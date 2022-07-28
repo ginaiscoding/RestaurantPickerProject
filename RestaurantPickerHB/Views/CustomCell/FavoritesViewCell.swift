@@ -1,14 +1,14 @@
 //
-//  RestaurantViewCell.swift
+//  FavoritesCell.swift
 //  RestaurantPickerHB
 //
-//  Created by Regina Paek on 7/12/22.
+//  Created by Regina Paek on 7/25/22.
 //
 
 import SwiftUI
 import CoreData
 
-struct RestaurantViewCell: View {
+struct FavoritesViewCell: View {
     
     @State var showDetails = false
     @State var isFavorited: Bool = false
@@ -38,20 +38,10 @@ struct RestaurantViewCell: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(restaurant.formattedName)
                     .font(Font.custom("VT323-Regular", size:20))
-                HStack{
-                    Text(restaurant.formattedCategory)
-                        .font(.system(size: 12))
-                        .foregroundColor(.secondary)
-                    Text("·")
-                        .foregroundColor(.secondary)
-                    Text(restaurant.price ?? "none")
-                        .font(.system(size: 12))
-                        .foregroundColor(.secondary)
-                    Text("·")
-                        .foregroundColor(.secondary)
-                }
+                Text(restaurant.formattedCategory)
+                    .font(.system(size: 10))
+                    .foregroundColor(.gray)
                 HStack {
-                    //Text(restaurant.formattedRating)
                     reviewStars()
                     Text(restaurant.formattedReviewCount)
                         .font(.caption)
@@ -83,17 +73,14 @@ struct RestaurantViewCell: View {
                 .buttonStyle(BorderedButtonStyle())
             
         }
-        .overlay(
-            NavigationLink(destination:
-                            RestaurantListDetailView( restaurant: .init(rating: restaurant.rating, id: nil, alias: nil, categories: restaurant.categories, name: restaurant.name, url: nil, location: .init(address1: restaurant.location?.address1, address2: nil, address3: nil, city: restaurant.location?.city, zipCode: restaurant.location?.zipCode, country: nil, state: nil, displayAddress: restaurant.location?.displayAddress), imageURL: restaurant.imageURL, coordinates: nil, limit: 50, phone: restaurant.phone, displayPhone: restaurant.formattedPhone, photos: restaurant.photos, reviewCount: restaurant.reviewCount, price: restaurant.price)), isActive: $showDetails) { EmptyView() }
-        )
+
         .onTapGesture {
-            
-            viewModel.requestReviews(forID: restaurant.id ?? "none")
+        
             self.showDetails = true
         }
         
         .onAppear {
+            viewModel.requestReviews(forID: restaurant.id ?? "none")
             if checkIfExists(restaurantID: restaurant.id ?? "none", name: restaurant.name ?? "none") == true {
                 isFavorited = true
                 
@@ -103,14 +90,14 @@ struct RestaurantViewCell: View {
     }
     
 }
-struct RestaurantViewCell_Previews: PreviewProvider {
+struct FavoritesViewCell_Previews: PreviewProvider {
     static var previews: some View {
-        RestaurantViewCell(restaurant: .init(rating: 4, id: nil, alias: nil, categories: nil, name: "Dumpling House", url: nil, location: nil, imageURL: "https://s3-media2.fl.yelpcdn.com/bphoto/DNfqq1zYxbJ-gsalml7wng/o.jpg", coordinates: nil, limit: 50, phone:"415-123-4567", displayPhone: "415-123-4567", photos: ["https://s3-media2.fl.yelpcdn.com/bphoto/DNfqq1zYxbJ-gsalml7wng/o.jpg","https://s3-media2.fl.yelpcdn.com/bphoto/DNfqq1zYxbJ-gsalml7wng/o.jpg"], reviewCount: 4, price: "$$$"))
+        RestaurantViewCell(restaurant: .init(rating: 4, id: nil, alias: nil, categories: nil, name: "Dumpling House", url: nil, location: nil, imageURL: "https://s3-media2.fl.yelpcdn.com/bphoto/DNfqq1zYxbJ-gsalml7wng/o.jpg", coordinates: nil, limit: 50, phone:"415-123-4567", displayPhone: "415-123-4567", photos: ["https://s3-media2.fl.yelpcdn.com/bphoto/DNfqq1zYxbJ-gsalml7wng/o.jpg","https://s3-media2.fl.yelpcdn.com/bphoto/DNfqq1zYxbJ-gsalml7wng/o.jpg"], reviewCount: 4, price: "$$$$"))
             .environmentObject(RestaurantViewModel())
     }
 }
 
-extension RestaurantViewCell {
+extension FavoritesViewCell {
     
     func checkIfExists(restaurantID: String, name: String) -> Bool {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "RestaurantModel")
@@ -131,7 +118,7 @@ extension RestaurantViewCell {
         }
     }
 }
-extension RestaurantViewCell {
+extension FavoritesViewCell {
     
     func reviewStars() -> Image {
         switch restaurant.formattedRating {

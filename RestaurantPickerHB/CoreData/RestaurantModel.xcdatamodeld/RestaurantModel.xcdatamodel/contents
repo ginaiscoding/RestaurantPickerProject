@@ -2,13 +2,18 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="RestaurantModel" representedClassName="RestaurantModel" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String"/>
-        <attribute name="imageUrl" optional="YES" attributeType="String"/>
-        <attribute name="isFavorited" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="displayAddress" optional="YES" attributeType="String"/>
+        <attribute name="imageUrl" attributeType="String"/>
+        <attribute name="isFavorited" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isOpen" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="phone" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="rating" optional="YES" attributeType="String"/>
         <attribute name="restaurantId" optional="YES" attributeType="String"/>
+        <attribute name="reviewCount" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="RestaurantModel" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="RestaurantModel" positionX="-63" positionY="-18" width="128" height="194"/>
     </elements>
 </model>
