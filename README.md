@@ -1,6 +1,6 @@
 <p align="center">
 <img width="392" alt="Screen Shot 2022-08-15 at 10 46 38 AM" src="https://user-images.githubusercontent.com/104851148/184688850-39fdcfed-831a-4987-8d61-ec4bc0808752.png">
-<p align="center">
+</p>
 # RestaurantPickerProject
 Personal Project: an app that picks a random restaurant from Yelp API using SwiftUI, Combine Framework, CoreData, and CoreLocation.  
 <p align="center">
