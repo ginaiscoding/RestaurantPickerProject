@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import Combine
 
-let apiKey = "JjWDojJnd-cspd3LdV74zeIcdx15oDYtoXvVogryFExhHZ1bDKsmZzVLXFoOIgmkTURluK9SSoO1G9hmfnGTmvwaA_t9RoADHFc1w5kxfszQmTspVSRf_AsVeNTcYnYx"
+let apiKey = "Need a Yelp Fusion Account for Api Key"
 
 struct YelpApiService {
     
