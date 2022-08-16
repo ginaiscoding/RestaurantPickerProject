@@ -19,3 +19,8 @@ user interface applications since a lot of their requests are done on the main t
 <img src="https://user-images.githubusercontent.com/104851148/184688888-59808c6a-689c-4caf-b623-41f6d96513e7.png" width="35%" height="35%"/>
 </p>
 
+## Resources:
+
+- https://www.yelp.com/developers/documentation/v3/get_started
+- https://developer.apple.com/documentation/coredata
+- https://developer.apple.com/documentation/combine
