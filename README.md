@@ -1,5 +1,6 @@
 <p align="center">
-<img width="392" alt="Screen Shot 2022-08-15 at 10 46 38 AM" src="https://user-images.githubusercontent.com/104851148/184688850-39fdcfed-831a-4987-8d61-ec4bc0808752.png">
+<img src= "https://user-images.githubusercontent.com/104851148/184945893-8193c463-3cd3-4511-aa83-d0e8d59c76da.gif" width="50%" height="50%"/>
+
 </p>
 
 # RestaurantPickerProject
